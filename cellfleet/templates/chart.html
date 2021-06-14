@@ -1,0 +1,72 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% if request.user.is_authenticated %}
+  <div id="container" style="width: 700px; border: 2px solid #eeeeee; border-radius: 100px; margin-left: 20px; padding: 5px"; >
+    <canvas id="polarArea"></canvas>
+  </div>
+
+<div id="container" style="width: 700px; border: 2px solid #eeeeee; margin-top: 70px; margin-left: 20px; padding: 5px"; >
+    <canvas id="myBarChart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+
+    var config = {
+      type: 'polarArea',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+           'rgba(0, 49, 83, 0.7)',
+           'rgba(255, 191, 0, 0.7)',
+           'rgba(252, 3, 0, 0.7)',
+           'rgba(0, 35, 83, 0.7)',
+           'rgba(123, 0, 83, 0.7)',
+          ],
+          label: 'Devices'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true,
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('polarArea').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+  </script>
+
+  <script>
+  var ctx = document.getElementById('myBarChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: {{labels1|safe}},
+        datasets: [{
+            label: 'SIM',
+            backgroundColor: ['rgba(71, 158, 75, 0.7)', 'rgba(71, 100, 158, 0.7)'],
+            borderColor: 'rgb(255, 99, 132)',
+            data: {{data1|safe}}
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+
+  </script>
+{% endif %}
+
+
+
+{% endblock %}

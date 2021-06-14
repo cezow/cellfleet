@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load crispy_forms_tags%}
+<div class="bg-muted">
+    <div class="mx-5">
+        <div class="col-lg-12 container justify-content-center">
+            <form method="get" autocomplete="off"
+                  class="bg-light border rounded p-1 d-flex align-items-center justify-content-around">
+                {% csrf_token %}
+                {{my_filter.form}}
+                <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i> Search</button>
+            </form>
+        </div>
+        <table class="table table-sm table-hover bg-light border">
+            <thead>
+            <tr class="bg-secondary text-warning">
+                <th class="align-middle">Mobile ({{result}})</th>
+                <th class="align-middle">First Name</th>
+                <th class="align-middle">Second Name</th>
+                <th class="align-middle">Id</th>
+                <th class="align-middle">Position</th>
+                <th class="align-middle">Email</th>
+                <th class="align-middle">MPK</th>
+                <th class="align-middle">Tariff</th>
+                <th class="align-middle">SIM</th>
+                <th class="align-middle">PIN</th>
+                <th class="align-middle">PUK</th>
+                <th class="align-middle">Event</th>
+                <th class="align-middle">Added</th>
+                <th><a href="{% url 'mobile_number_add'%}" class="btn text-secondary px-0">
+                    <i class="fas fa-plus-circle text-white"></i>
+                </a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for number in numbers %}
+            <tr>
+                <td>{{number.number}}</td>
+                <td>{{number.employee.first_name}}</td>
+                <td>{{number.employee.second_name}}</td>
+                <td>{{number.employee.id}}</td>
+                <td>{{number.employee.position}}</td>
+                <td>{{number.employee.email}}</td>
+                <td>{{number.employee.mpk}}</td>
+                <td>{{number.tariff}}</td>
+                <td>{{number.sim}}</td>
+                <td>{{number.pin}}</td>
+                <td>{{number.puk}}</td>
+                <td>{{number.event_date}}</td>
+                <td>{{number.date_added}}</td>
+                <td>
+
+                    <a href="{% url 'mobile_number_edit' number.id %}" class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg text-info"></i>
+                    </a>
+
+                    <a href="{% url 'mobile_number_delete' number.id %}" class="btn text-secondary px-0">
+                        <button class="btn text-danger px-0">
+                            <i class="fas fa-trash-alt text-danger"></i>
+                        </button>
+                    </a>
+
+                </td>
+
+
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+{% endblock %}

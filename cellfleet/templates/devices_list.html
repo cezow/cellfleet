@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-muted">
+    <div class="mx-5">
+        <div class="col-lg-12 container justify-content-center">
+        <form method="get" autocomplete="off" class="bg-light border rounded p-1 d-flex align-items-center justify-content-around">
+            {% csrf_token %}
+            {{filter.form}}
+            <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i> Search</button>
+        </form>
+        </div>
+        <table class="table table-sm table-hover bg-light border">
+            <thead>
+            <tr class="bg-danger  text-white">
+            <th>User</th>
+            <th>Mark</th>
+            <th>Model</th>
+            <th>Serial Number</th>
+            <th>Warranty</th>
+            <th>Delivery Date</th>
+            <th>Last Event Date</th>
+            <th>Price</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for device in devices %}
+        <tr>
+            <td>{{device.user}}</td>
+            <td>{{device.mark}}</td>
+            <td>{{device.model}}</td>
+            <td>{{device.serial_number}}</td>
+            <td>{{device.warranty}}</td>
+            <td>{{device.delivery_date}}</td>
+            <td>{{device.event_date}}</td>
+            <td>{{device.price}} zł</td>
+            {% for price in prices %}
+            <td> {{price}}zł</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+        {{count}}
+
+     </form>
+</div>
+    </div>
+</div>
+{% endblock %}

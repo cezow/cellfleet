@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center pt-3 mt-5 container justify-content-center w-25 border" style="border-radius: 30%;">
+<h1><u>Login</u></h1>
+    {% if form.errors %}
+    <p>Username or password is incorrect. Please try again.</p>
+    {% else %}
+    <p>Fill the form to log into the system</p>
+    {% endif %}
+    <div class="login-form">
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button class="btn btn-primary btn-md" type="submit">Log in</button>
+        </form>
+        <br>
+        <p><a href="{% url 'password_reset' %}">Did You forgot your password?</a></p>
+    </div>
+</div>
+{% endblock %}

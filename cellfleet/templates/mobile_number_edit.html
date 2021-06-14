@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags%}
+<div class="container">
+    <div class="col-md-10 offset-md-1 mt-5">
+        <div class="jumbotron pb-4 pt-4">
+            <a href="{% url 'mobile_numbers' %}" class="close" aria-label="Close">
+                <span aria-hidden="true">x</span>
+            </a>
+            <h1 class="display-4">Number editor</h1>
+            <p class="lead">CRUD Operations: Create Read Update Delete</p>
+            <hr class="my-4">
+
+            <form action="" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <!--{{ form | crispy }}-->
+                <div class="row">
+                    <div class="col-md-5">{{form.number | as_crispy_field}}</div>
+                    <div class="col-md-7">{{form.sim | as_crispy_field}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">{{form.pin | as_crispy_field}}</div>
+                    <div class="col-md-7">{{form.puk | as_crispy_field}}</div>
+                    <div class="col-md-7">{{form.tariff | as_crispy_field}}</div>
+                </div>
+                {{form.employee | as_crispy_field}}
+
+                <br>
+                <div class="row justify-content-around">
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-md"><i class="fas fa-database"></i> Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
